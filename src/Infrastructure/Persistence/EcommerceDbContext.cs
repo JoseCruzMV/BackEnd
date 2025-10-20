@@ -42,6 +42,36 @@ public class EcommerceDbContext : IdentityDbContext<Usuario>
         builder.Entity<IdentityRole>()
             .Property(ir => ir.NormalizedName)
             .HasMaxLength(90);
+
+        builder.Entity<Category>()
+            .HasMany(c => c.Products)
+            .WithOne(p => p.Category)
+            .HasForeignKey(p => p.CategoryId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Product>()
+            .HasMany(p => p.Reviews)
+            .WithOne(r => r.Product)
+            .HasForeignKey(r => r.ProductId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<Product>()
+            .HasMany(p => p.Images)
+            .WithOne(i => i.Product)
+            .HasForeignKey(i => i.ProductId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.Entity<ShoppingCart>()
+            .HasMany(sc => sc.ShoppingCartItems)
+            .WithOne(sci => sci.ShoppingCart)
+            .HasForeignKey(sci => sci.ShoppingCartId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
+
+        
     }
 }
 
