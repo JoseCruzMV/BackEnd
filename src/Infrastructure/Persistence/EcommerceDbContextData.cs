@@ -52,7 +52,7 @@ public class EcommerceDbContextData
 
             if (!context.Categories.Any())
             {
-                var categoryData = File.ReadAllText("../Data/category.json");
+                var categoryData = File.ReadAllText("../Infrastructure/Data/category.json");
                 var categories = JsonConvert.DeserializeObject<List<Category>>(categoryData);
 
                 await context.Categories.AddRangeAsync(categories!);
@@ -61,7 +61,7 @@ public class EcommerceDbContextData
 
             if (!context.Products.Any())
             {
-                var productData = File.ReadAllText("../Data/product.json");
+                var productData = File.ReadAllText("../Infrastructure/Data/product.json");
                 var products = JsonConvert.DeserializeObject<List<Product>>(productData);
 
                 await context.Products.AddRangeAsync(products!);
@@ -70,7 +70,7 @@ public class EcommerceDbContextData
 
             if (!context.Images.Any())
             {
-                var imagesData = File.ReadAllText("../Data/image.json");
+                var imagesData = File.ReadAllText("../Infrastructure/Data/image.json");
                 var images = JsonConvert.DeserializeObject<List<Image>>(imagesData);
 
                 await context.Images.AddRangeAsync(images!);
@@ -79,7 +79,7 @@ public class EcommerceDbContextData
 
             if (!context.Reviews.Any())
             {
-                var reviewsData = File.ReadAllText("../Data/review.json");
+                var reviewsData = File.ReadAllText("../Infrastructure/Data/review.json");
                 var reviews = JsonConvert.DeserializeObject<List<Review>>(reviewsData);
 
                 await context.Reviews.AddRangeAsync(reviews!);
@@ -88,7 +88,7 @@ public class EcommerceDbContextData
 
             if (!context.Countries.Any())
             {
-                var countriesData = File.ReadAllText("../Data/countries.json");
+                var countriesData = File.ReadAllText("../Infrastructure/Data/countries.json");
                 var countries = JsonConvert.DeserializeObject<List<Country>>(countriesData);
 
                 await context.Countries.AddRangeAsync(countries!);
