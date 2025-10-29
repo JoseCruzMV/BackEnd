@@ -1,9 +1,10 @@
+using Ecommerce.Application.Contracts.Infrastructure;
 using Ecommerce.Application.Models.Token;
 using Ecommerce.Application.Persistence;
+using Ecommerce.Infrastructure.MessageImplementation;
 using Ecommerce.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Stripe;
 
 namespace Ecommerce.Infrastructure;
 
@@ -16,6 +17,8 @@ public static class InfrastructureServiceRegistration
         services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
 
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+
+        services.AddTransient<IEmailService, EmailService>(); 
 
         return services;
     }

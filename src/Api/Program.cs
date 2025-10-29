@@ -1,4 +1,5 @@
 using System.Text;
+using Ecommerce.Application;
 using Ecommerce.Domain;
 using Ecommerce.Infrastructure;
 using Ecommerce.Infrastructure.Persistence;
@@ -14,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructureService(builder.Configuration);
+builder.Services.AddAplicationServices(builder.Configuration);
 
 builder.Services.AddDbContext<EcommerceDbContext>(options =>
 {
