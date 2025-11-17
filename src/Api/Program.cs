@@ -1,8 +1,13 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Ecommerce.Application;
+using Ecommerce.Application.Contracts.Infrastructure;
+using Ecommerce.Application.Features.Products.Queries.GetProductList;
 using Ecommerce.Domain;
 using Ecommerce.Infrastructure;
+using Ecommerce.Infrastructure.ImageCloudinary;
 using Ecommerce.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -23,11 +28,18 @@ builder.Services.AddDbContext<EcommerceDbContext>(options =>
     b => b.MigrationsAssembly(typeof(EcommerceDbContext).Assembly.FullName));
 });
 
+builder.Services.AddMediatR(typeof(GetProductListQueryHandler).Assembly);
+
+builder.Services.AddScoped<IManageImageService, ManageImageService>();
+
 builder.Services.AddControllers(options =>
 {
     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
     options.Filters.Add(new AuthorizeFilter(policy));
+}).AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
 IdentityBuilder identityBuilder = builder.Services.AddIdentityCore<Usuario>();

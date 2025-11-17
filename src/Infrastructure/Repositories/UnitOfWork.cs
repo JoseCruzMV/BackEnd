@@ -42,9 +42,9 @@ public class UnitOfWork : IUnitOfWork
         if (!_repositories.ContainsKey(type))
         {
             var repositoryType = typeof(RepositoryBase<>);
-            var repositotyInstance = Activator.CreateInstance(
-                repositoryType.MakeGenericType(typeof(TEntity)));
-            _repositories.Add(type, repositotyInstance);
+            var repositoryInstance = Activator.CreateInstance(
+                repositoryType.MakeGenericType(typeof(TEntity)), _context);
+            _repositories.Add(type, repositoryInstance);
         }
 
         return (IAsyncRepository<TEntity>)_repositories[type]!;
